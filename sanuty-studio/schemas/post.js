@@ -45,12 +45,29 @@ export default {
                         {
                             title: 'Comment',
                             name: 'comment',
-                            type: 'string'
+                            type: 'string', 
                         }
                     ]
                 }
             ],
             validation: (Rule) => Rule.unique(),
         }
-    ]
+    ],
+    preview: {
+        select: {
+            title: 'comments.0.comment',
+            authorName: 'author.name',
+            authorUsername: 'author.username',
+            media: 'photo'
+        },
+        prepare(selection) {
+            console.log(selection);
+            const {title, authorName, authorUsername, media} = selection;
+            return {
+                title,
+                subtitle: `by ${authorName} (${authorUsername})`,
+                media
+            }
+        }
+    }
 }
